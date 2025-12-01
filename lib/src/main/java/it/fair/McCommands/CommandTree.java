@@ -1,10 +1,6 @@
 package it.fair.McCommands;
 
-import it.fair.McCommands.CommandTreeNode;
 
-import java.lang.reflect.Method;
-
-import java.util.List;
 import java.util.ArrayList;
 
 
@@ -36,7 +32,7 @@ public class CommandTree {
 
     public void addSubCommand(CommandTreeNode root, Command parent, Command command) {
         root.children().forEach(child -> {
-            if (child.equals(parent)) {
+            if (child.command().equals(parent)) {
                 child.children().add(new CommandTreeNode(command, new ArrayList<>()));
             } else {
                 this.addSubCommand(child, parent, command);

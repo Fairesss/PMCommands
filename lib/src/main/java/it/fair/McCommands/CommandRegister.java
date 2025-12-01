@@ -7,17 +7,13 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 
-import java.lang.Package;
-import java.util.stream.Collectors;
-
-
 public class CommandRegister {
 
     final private String pkgPath;
-    private Map<String, Command> clazzes;
-    private Map<String, List<Method>> methods;
-    private CommandTree commandTree;
-    private Map<String, Command> subClazzes;
+    private final Map<String, Command> clazzes;
+    private final Map<String, List<Method>> methods;
+    private final CommandTree commandTree;
+    private final Map<String, Command> subClazzes;
 
     public CommandRegister(String pkgPath) {
         this.pkgPath = pkgPath;
