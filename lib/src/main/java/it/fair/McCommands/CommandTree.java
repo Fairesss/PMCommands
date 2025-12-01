@@ -1,11 +1,7 @@
 package it.fair.McCommands;
 
-
 import java.util.ArrayList;
-
-
 import java.lang.StringBuilder;
-
 
 public class CommandTree {
     CommandTreeNode root;

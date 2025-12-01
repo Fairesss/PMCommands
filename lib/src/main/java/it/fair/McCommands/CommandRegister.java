@@ -31,35 +31,35 @@ public class CommandRegister {
         for (var key : this.clazzes.keySet()) {
             Command command = this.clazzes.get(key);
             this.commandTree.addCommand(command);
-
-            command.subPackages()
-                    .forEach(
-                    subPkg -> this.subClazzes.values().stream()
-                            .filter(c -> c.pkg().equals(subPkg))
-                            .forEach(
-                                    c -> this.commandTree.addSubCommand(command, c)
-                            )
-            );
+            createCommandTree(command);
         }
     }
 
+    public void createCommandTree(Command command) {
+        command.subPackages().forEach(
+                subPkg -> this.subClazzes
+                        .values()
+                        .stream()
+                        .filter(c -> c.pkg().equals(subPkg))
+                        .forEach(c -> {
+                                this.commandTree.addSubCommand(command, c);
+                                this.createCommandTree(c);
+                        }));
+    }
 
     private void findClasses() {
-        try (var scan = new ClassGraph()
-                .enableAnnotationInfo()
+        try (var scan = new ClassGraph().enableAnnotationInfo()
                 .enableClassInfo()
                 .enableMethodInfo()
                 .acceptPackages(this.pkgPath)
                 .scan()) {
             scan
                     .getClassesWithAnnotation(CommandClass.class.getName())
-                    .forEach(cl -> {
+                    .stream()
+                    .sorted(Comparator.comparingInt(c -> c.getPackageName().length())).
+                    forEach(cl -> {
                         var clazz = cl.loadClass();
-                        var subCommands = Arrays
-                                .stream(clazz
-                                        .getAnnotation(CommandClass.class)
-                                        .subCommandClass()).toList();
-
+                        var subCommands = Arrays.stream(clazz.getAnnotation(CommandClass.class).subCommandClass()).toList();
                         if (clazz.getPackageName().equals(this.pkgPath)) {
                             this.clazzes.put(cl.getName(), new Command(clazz.getPackageName(), clazz, new ArrayList<>(), subCommands));
                         } else {
@@ -76,9 +76,7 @@ public class CommandRegister {
     }
 
     private static void findCommandCall(Map<String, Command> clazzes) {
-        clazzes.forEach((className, clazz) -> Arrays.stream(clazz.clazz().getMethods())
-                .filter(method -> method.getAnnotation(CommandCall.class) != null)
-                .forEach(method -> clazz.method().add(method)));
+        clazzes.forEach((className, clazz) -> Arrays.stream(clazz.clazz().getMethods()).filter(method -> method.getAnnotation(CommandCall.class) != null).forEach(method -> clazz.method().add(method)));
     }
 
     public Map<String, Command> getClazzes() {
