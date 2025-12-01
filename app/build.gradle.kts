@@ -21,6 +21,12 @@ repositories {
 
 dependencies {
     implementation(project(":lib"))
+        // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:2.0.17")
+
+
+    implementation("io.github.classgraph:classgraph:4.8.184")
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -30,6 +36,7 @@ java {
     }
 }
 
+
 application {
-    mainClass = "it.fair.Example"
+    mainClass = "org.example.Example"
 }

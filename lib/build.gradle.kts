@@ -7,11 +7,11 @@
  */
 
 plugins {
-    // Apply the scala Plugin to add support for Scala.
-    scala
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -20,12 +20,17 @@ repositories {
 }
 
 dependencies {
-}
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:2.0.17")
 
 
-scala {
-    scalaVersion = "3.7.4"
+    implementation("io.github.classgraph:classgraph:4.8.184")
 }
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-Xlint:deprecation")
+}
+
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
