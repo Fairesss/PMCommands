@@ -32,14 +32,14 @@ public class CommandRegister {
             Command command = this.clazzes.get(key);
             this.commandTree.addCommand(command);
 
-            command.subPackages().forEach(
+            command.subPackages()
+                    .forEach(
                     subPkg -> this.subClazzes.values().stream()
                             .filter(c -> c.pkg().equals(subPkg))
                             .forEach(
                                     c -> this.commandTree.addSubCommand(command, c)
                             )
             );
-
         }
     }
 
