@@ -1,16 +1,16 @@
 package org.example;
 
-import it.fair.McCommands.CommandRegister;
+import it.fair.McCommands.CommandParser;
+import it.fair.McCommands.CommandRecorder;
+import org.bukkit.plugin.java.JavaPlugin;
 
 
+public class Example extends JavaPlugin {
 
-public class Example {
-
-    public static void main(String[] args) {
-        CommandRegister cr = new CommandRegister("org.example");
-
-        var commandTree = cr.getCommandTree();
-
-        System.out.println(commandTree);
+    @Override
+    public void onEnable() {
+        CommandParser cr = new CommandParser("org.example");
+        CommandRecorder  r = new CommandRecorder(this, cr.getCommandTree(), "fair");
+        r.register();
     }
 }
