@@ -8,7 +8,7 @@ import it.fair.McCommands.CommandCall;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 
-@CommandClass(subCommandClass = {"org.example.sub.Double"})
+@CommandClass()
 public class Sub {
     @CommandCall
     public static void sub(CommandContext<CommandSourceStack> ctx){
