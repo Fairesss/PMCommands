@@ -7,13 +7,12 @@ import it.fair.McCommands.CommandCall;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 
-@CommandClass(alias = "NotFindClass", subCommandClass = {"org.example.sub"})
-public class FindClass {
+@CommandClass(alias = "call", subCommandClass = {"org.example.sub"})
+public class CallCommand {
 
     @CommandCall
-    public static void addOne(CommandContext<CommandSourceStack> ctx) {
+    public static void call(CommandContext<CommandSourceStack> ctx) {
         var player = ctx.getSource().getExecutor();
         player.sendMessage(MiniMessage.miniMessage().deserialize("Calling:  " + player.getName()));
     }
-
 }
