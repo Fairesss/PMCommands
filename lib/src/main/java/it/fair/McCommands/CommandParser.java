@@ -1,8 +1,11 @@
 package it.fair.McCommands;
 
 import io.github.classgraph.ClassGraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 
@@ -13,10 +16,15 @@ public class CommandParser {
     private final CommandTree commandTree;
     private final Map<String, Command> subclasses;
 
+    private final static Logger logger = LoggerFactory.getLogger(CommandParser.class);
+
+
     public CommandParser(String pkgPath) {
         this.pkgPath = pkgPath;
         this.classes = new HashMap<>();
         this.subclasses = new HashMap<>();
+
+        logger.info("Loading Commands from {}.", pkgPath);
         this.findClasses();
         this.findCommandCall();
 
@@ -57,6 +65,7 @@ public class CommandParser {
                         var clazz = cl.loadClass();
                         var subCommands = Arrays.stream(clazz.getAnnotation(CommandClass.class).subCommandClass()).toList();
                         var alias = clazz.getAnnotation(CommandClass.class).alias().isEmpty() ? clazz.getSimpleName() : clazz.getAnnotation(CommandClass.class).alias();
+                        logger.info("Found command Command Class {}(alias = {}, subcommands = {}).", clazz.getName(), alias, subCommands);
                         if (clazz.getPackageName().equals(this.pkgPath)) {
                             this.classes.put(cl.getName(), new Command(clazz.getPackageName(), clazz, new ArrayList<>(), alias, subCommands));
                         } else {
@@ -77,7 +86,14 @@ public class CommandParser {
                 Arrays
                         .stream(clazz.clazz().getMethods())
                         .filter(method -> method.getAnnotation(CommandCall.class) != null)
-                        .forEach(method -> clazz.method().add(method)));
+//                        .filter(method -> Modifier.isStatic(method.getModifiers()))
+                        .forEach(method ->
+                        {
+                            if (!Modifier.isStatic(method.getModifiers())) {
+                                logger.warn("{} is ingored because it's not static", method.getName());
+                            }
+                            clazz.method().add(method);
+                        }));
     }
 
     public CommandTree getCommandTree() {
