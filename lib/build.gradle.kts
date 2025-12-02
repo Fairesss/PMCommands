@@ -10,19 +10,23 @@ plugins {
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
-
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation("org.slf4j:slf4j-api:2.0.17")
 
+    compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
 
     implementation("io.github.classgraph:classgraph:4.8.184")
 }
