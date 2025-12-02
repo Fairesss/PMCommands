@@ -7,8 +7,27 @@
  */
 
 plugins {
-    application
+    java
+    id("com.gradleup.shadow") version "8.3.6"
+    id("de.eldoria.plugin-yml.paper") version "0.7.1"
 }
+paper {
+    main = "org.example.Example"
+    authors = listOf("Fair")
+    apiVersion = "1.21"
+    version = "0.0.1"
+}
+
+tasks {
+    register<Copy>("copyToServer") {
+        from(shadowJar)
+        destinationDir = File("server/plugins")
+    }
+    build {
+        dependsOn(shadowJar)
+    }
+}
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -25,7 +44,8 @@ dependencies {
         // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation("org.slf4j:slf4j-api:2.0.17")
 
-    implementation("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+
 
     implementation("io.github.classgraph:classgraph:4.8.184")
 
@@ -39,6 +59,3 @@ java {
 }
 
 
-application {
-    mainClass = "org.example.Example"
-}
