@@ -43,5 +43,5 @@ public class CallCommand {
     }
 }
 ```
-this makes a command /example call call
+this makes a command /example call call;
 full example can be seen [here](https://github.com/Fairesss/PMCommands/tree/master/app/src/main/java/org/example)
