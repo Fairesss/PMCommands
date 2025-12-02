@@ -7,16 +7,17 @@
  */
 
 plugins {
-
     application
-
-
-    
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
@@ -24,6 +25,7 @@ dependencies {
         // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation("org.slf4j:slf4j-api:2.0.17")
 
+    implementation("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
 
     implementation("io.github.classgraph:classgraph:4.8.184")
 

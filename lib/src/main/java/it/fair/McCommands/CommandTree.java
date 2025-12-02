@@ -8,7 +8,7 @@ public class CommandTree {
 
     public CommandTree(String baseClass) {
         this.root = new CommandTreeNode(
-                new Command(baseClass, null, null, null),
+                new Command(baseClass, null, null, "Base", null),
                 new ArrayList<>());
     }
 
@@ -47,6 +47,9 @@ public class CommandTree {
         }
     }
 
+    public CommandTreeNode getRoot() {
+        return root;
+    }
 
     private void printInfo(CommandTreeNode node, StringBuilder sb) {
         sb.append(node.toString()).append("\n").append("\t");

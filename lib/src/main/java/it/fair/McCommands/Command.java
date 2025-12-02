@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.List;
 
-public record Command(String pkg, Class<?> clazz, List<Method> method, List<String> subPackages) {
+public record Command(String pkg, Class<?> clazz, List<Method> method, String alias, List<String> subPackages) {
 
     public String getCommandName() {
         return clazz.getSimpleName();
