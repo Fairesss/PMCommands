@@ -33,7 +33,7 @@ public class Example extends JavaPlugin {
 
 package org.example;
 
-@CommandClass(alias = "call", subCommandClass = {"org.example.sub"})
+@CommandClass(alias = "call")
 public class CallCommand {
 
     @CommandCall
@@ -44,3 +44,4 @@ public class CallCommand {
 }
 ```
 this makes a command /example call call
+full example can be seen [here](https://github.com/Fairesss/PMCommands/tree/master/app/src/main/java/org/example)
