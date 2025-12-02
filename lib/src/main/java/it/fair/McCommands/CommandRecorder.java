@@ -10,6 +10,8 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class CommandRecorder {
     private final CommandTree commandTree;
     private final String prefix;
@@ -45,8 +47,11 @@ public class CommandRecorder {
         node.command().method().forEach(command ->
                 builder
                         .then(Commands.literal(command.getName()).executes(ctx -> {
-                            Player p = (Player) ctx.getSource().getSender();
-                            p.sendMessage(MiniMessage.miniMessage().deserialize("Calling:  " + command.getName()));
+                            try {
+                                command.invoke(null, ctx);
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                throw new RuntimeException(e);
+                            }
                             return 1;
                         })));
 
