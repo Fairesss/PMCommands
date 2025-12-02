@@ -9,6 +9,8 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -30,8 +32,7 @@ public class CommandRecorder {
         this.commandTree.getRoot().children().forEach(c -> {
             builder.then(register(c).build());
         });
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
-                commands -> commands.registrar().register(builder.build()));
+        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> commands.registrar().register(builder.build()));
         return null;
     }
 
@@ -44,17 +45,13 @@ public class CommandRecorder {
     }
 
     private void addCommands(LiteralArgumentBuilder<CommandSourceStack> builder, CommandTreeNode node) {
-        node.command().method().forEach(command ->
-                builder
-                        .then(Commands.literal(command.getName()).executes(ctx -> {
-                            try {
-                                command.invoke(null, ctx);
-                            } catch (IllegalAccessException | InvocationTargetException e) {
-                                throw new RuntimeException(e);
-                            }
-                            return 1;
-                        })));
-
-
+        node.command().method().forEach(command -> builder.then(Commands.literal(command.getName()).executes(ctx -> {
+            try {
+                command.invoke(null, ctx);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+            return 1;
+        })));
     }
 }

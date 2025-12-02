@@ -7,7 +7,7 @@ import it.fair.McCommands.CommandCall;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 
-@CommandClass(subCommandClass = {})
+@CommandClass(alias = "NotFindClass", subCommandClass = {"org.example.sub"})
 public class FindClass {
 
     @CommandCall
