@@ -34,6 +34,7 @@ public class CommandRecorder {
     }
 
 
+
     private LiteralArgumentBuilder<CommandSourceStack> register(CommandTreeNode root) {
         LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(root.command().alias());
         this.addCommands(builder, root);
