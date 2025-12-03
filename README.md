@@ -6,7 +6,7 @@ A lightweight library designed to simplify the creation of custom Minecraft comm
 ## ⚙️ Limitations
 - Only supports static methods
 - Commands must explicitly accept the command context \
-this means all CommandClass must be like this:
+this means all CommandCall must be like this:
 ```java
 public static void call(CommandContext<CommandSourceStack> ctx)
 ```
