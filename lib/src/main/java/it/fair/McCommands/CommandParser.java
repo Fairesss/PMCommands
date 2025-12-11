@@ -91,6 +91,7 @@ public class CommandParser {
                         {
                             if (!Modifier.isStatic(method.getModifiers())) {
                                 logger.warn("{} is ingored because it's not static", method.getName());
+                                return;
                             }
                             clazz.method().add(method);
                         }));
