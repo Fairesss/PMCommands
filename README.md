@@ -1,5 +1,5 @@
 # PMCommands
-PMCommands is a lightweight library designed to simplify the creation and registration of custom Minecraft commands on PaperMC. It automates much of the boilerplate, letting you focus on writing clean, developer-friendly command logic.
+PMCommands is a library designed to simplify the creation and registration of custom Minecraft commands on PaperMC. It automates much of the boilerplate, letting you focus on writing clean, developer-friendly command logic.
 
 ## ✨ Features
 
