@@ -10,7 +10,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 
 @CommandClass(alias = "call", subCommandClass = {"org.example.sub"})
 public class CallCommand {
-
     @CommandCall
     public static void call(CommandContext<CommandSourceStack> ctx, @Param(name = "a") int a, @Param(name = "b") float b, @Param(name = "range") IntegerRangeProvider rangeProvider) {
         var player = ctx.getSource().getExecutor();
