@@ -10,7 +10,6 @@ plugins {
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
-    `maven-publish`
 }
 
 repositories {
@@ -32,8 +31,11 @@ dependencies {
     implementation("io.github.classgraph:classgraph:4.8.184")
 }
 
-tasks.withType<JavaCompile> {
-    options.compilerArgs.add("-Xlint:deprecation")
+
+tasks.jar {
+    archiveBaseName.set("PMCommands")
+    archiveVersion.set("1.0.0")
+    archiveClassifier.set("release")
 }
 
 
@@ -44,23 +46,3 @@ java {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("PMCommands") {
-            from(components["java"])
-            groupId = "it.fair"       // your package namespace
-            artifactId = "PMCommands"     // library name
-            version = "1.0.0"             // release version
-        }
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Fairesss/PMCommands")
-            credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
-            }
-        }
-    }
-}
