@@ -1,6 +1,6 @@
 # PMCommands
 
-A lightweight library designed to simplify the creation of custom Minecraft commands using Paper.
+A library designed to simplify the creation of custom Minecraft commands using Paper.
 
 
 ## ⚙️ Limitations
