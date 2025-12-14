@@ -1,51 +1,22 @@
 # PMCommands
+PMCommands is a lightweight library designed to simplify the creation and registration of custom Minecraft commands on PaperMC. It automates much of the boilerplate, letting you focus on writing clean, developer-friendly command logic.
 
-A library designed to simplify the creation of custom Minecraft commands using Paper.
+## ✨ Features
 
-## Features
-- Eazy to use
-- Managers and registers commands autmotaically 
+-    Simple & intuitive – minimal setup required
+
+-    Automatic management – parses and registers commands for you
+
+-    Annotation-driven – define commands with clear annotations
 
 ## ⚙️ Limitations
-- Only supports static methods
-- Commands must explicitly accept the command context
-- Use
-```java
-   Command.ArgumentTypeResolver.addCustomArgumentType(Class<?>, ArgumentTypes<?>);
-```
-to add custom type even if available in the standart papermc library 
 
-##  Example
+-    Only supports static methods
 
-```java
-package org.example;
+-    Commands must explicitly accept the command context
 
-public class Example extends JavaPlugin {
+-    To add custom argument types (even if already available in PaperMC)
 
-    @Override
-    public void onEnable() {
-        CommandParser cr = new CommandParser("org.example");
-        CommandRecorder  r = new CommandRecorder(this, cr.getCommandTree(), "example");
-        r.register();
-    }
-}
+## 📂 Full Example
 
-
-```
-
-```java
-
-package org.example;
-
-@CommandClass(alias = "call")
-public class CallCommand {
-
-    @CommandCall
-    public static void call(CommandContext<CommandSourceStack> ctx) {
-        var player = ctx.getSource().getExecutor();
-        player.sendMessage(MiniMessage.miniMessage().deserialize("Calling:  " + player.getName()));
-    }
-}
-```
-this makes a command /example call call;
-full example can be seen [here](https://github.com/Fairesss/PMCommands/tree/master/app/src/main/java/org/example)
+A complete working example can be found [here](https://github.com/Fairesss/PMCommands/tree/master/app/src/main/java/org/example).
