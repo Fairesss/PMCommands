@@ -2,14 +2,18 @@
 
 A library designed to simplify the creation of custom Minecraft commands using Paper.
 
+## Features
+- Eazy to use
+- Managers and registers commands autmotaically 
 
 ## ⚙️ Limitations
 - Only supports static methods
-- Commands must explicitly accept the command context \
-this means all CommandCall must be like this:
+- Commands must explicitly accept the command context
+- Use
 ```java
-public static void call(CommandContext<CommandSourceStack> ctx)
+   Command.ArgumentTypeResolver.addCustomArgumentType(Class<?>, ArgumentTypes<?>);
 ```
+to add custom type even if available in the standart papermc library 
 
 ##  Example
 
