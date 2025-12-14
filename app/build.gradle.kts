@@ -57,5 +57,3 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
-
-
