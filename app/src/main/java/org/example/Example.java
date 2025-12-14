@@ -10,11 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Example extends JavaPlugin {
 
-    public static void main(String[] args) {
-        Example example = new Example();
-        CommandParser cr = new CommandParser("org.example");
-        CommandRecorder  r = new CommandRecorder(example, cr.getCommandTree(), "fair");
-    }
     @Override
     public void onEnable() {
         CommandParser cr = new CommandParser("org.example");
